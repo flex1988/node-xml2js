@@ -13,10 +13,7 @@ processName = (processors, processedName) ->
   return processedName
 
 requiresCDATA = (entry) ->
-  if entry.indexOf('#')>=0
-    entry=entry.substring(entry.indexOf('#'));
-    return true;
-  return entry.indexOf('&') >= 0 || entry.indexOf('>') >= 0 || entry.indexOf('<') >= 0
+  return entry.indexOf('&') >= 0 || entry.indexOf('>') >= 0 || entry.indexOf('<') >= 0 || entry.indexOf('#') >= 0
 
 # Note that we do this manually instead of using xmlbuilder's `.dat` method
 # since it does not support escaping the CDATA close entity (throws an error if
@@ -145,6 +142,8 @@ class exports.Builder
           # Case #2 Char data (CDATA, etc.)
           else if key is charkey
             if @options.cdata && requiresCDATA child
+              if child.indexOf('#') > 0
+                child = child.substring child.indexOf '#'
               element = element.raw wrapCDATA child
             else
               element = element.txt child
