@@ -164,7 +164,7 @@ class exports.Builder
           # Case #5 String and remaining types
           else
             if typeof child is 'string' && @options.cdata && requiresCDATA child
-              if child indexOf('#') is 0
+              if child.indexOf('#') is 0
                 child = child.substring(1)
               element = element.ele(key).raw(wrapCDATA child).up()
             else
