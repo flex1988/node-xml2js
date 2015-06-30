@@ -142,7 +142,7 @@ class exports.Builder
           # Case #2 Char data (CDATA, etc.)
           else if key is charkey
             if @options.cdata && requiresCDATA child
-              if child.indexOf('#') > 0
+              if child.indexOf('#') is 0
                 child = child.substring 1
               element = element.raw wrapCDATA child
             else
