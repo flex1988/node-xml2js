@@ -13,6 +13,9 @@ processName = (processors, processedName) ->
   return processedName
 
 requiresCDATA = (entry) ->
+  if entry.indexOf('#')>=0
+    entry=entry.substring(entry.indexOf('#'));
+    return true;
   return entry.indexOf('&') >= 0 || entry.indexOf('>') >= 0 || entry.indexOf('<') >= 0
 
 # Note that we do this manually instead of using xmlbuilder's `.dat` method
