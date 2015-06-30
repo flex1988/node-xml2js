@@ -142,8 +142,6 @@ class exports.Builder
           # Case #2 Char data (CDATA, etc.)
           else if key is charkey
             if @options.cdata && requiresCDATA child
-              if child.indexOf('#') is 0
-                child = child.substring 1
               element = element.raw wrapCDATA child
             else
               element = element.txt child
@@ -166,6 +164,8 @@ class exports.Builder
           # Case #5 String and remaining types
           else
             if typeof child is 'string' && @options.cdata && requiresCDATA child
+              if child indexOf('#') is 0
+                child = child.substring(1)
               element = element.ele(key).raw(wrapCDATA child).up()
             else
               element = element.ele(key, child.toString()).up()
